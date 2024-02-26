@@ -4,14 +4,14 @@
 macro_rules! dbgf {
     ($fmt: tt $(,)?) => {{
             extern crate std as __std;
-            __std::eprintln!("[{}:{}]", __std::file!(), __std::line!())
+            __std::eprintln!("[{}:{}:{}]", __std::file!(), __std::line!(), __std::column!())
     }};
     ($fmt: tt, $val:expr $(,)?) => {
         match $val {
             tmp => {{
                 extern crate std as __std;
-                __std::eprintln!(concat!("[{}:{}] {} = {:", $fmt, "}"),
-                __std::file!(), __std::line!(), __std::stringify!($val), &tmp);
+                __std::eprintln!(__std::concat!("[{}:{}:{}] {} = {:", $fmt, "}"),
+                __std::file!(), __std::line!(), __std::column!(), __std::stringify!($val), &tmp);
                 tmp
             }}
         }
